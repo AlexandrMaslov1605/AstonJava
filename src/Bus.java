@@ -1,4 +1,4 @@
-public class Bus {
+public class Bus implements Comparable<Bus>{
     private String number;
     private String model;
     private Integer mileage;
@@ -19,6 +19,11 @@ public class Bus {
 
     public Integer getMileage() {
         return mileage;
+    }
+
+    @Override
+    public int compareTo(Bus o) {
+        return this.mileage.compareTo(o.mileage);
     }
 
     public static class BusBuilder{

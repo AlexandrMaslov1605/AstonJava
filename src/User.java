@@ -1,4 +1,4 @@
-public class User {
+public class User implements Comparable<User> {
     private String name;
     private String password;
     private String mail;
@@ -21,6 +21,10 @@ public class User {
         return mail;
     }
 
+    @Override
+    public int compareTo(User o) {
+        return this.name.compareTo(o.name);
+    }
     public static class UserBuilder {
         private String name;
         private String password;
