@@ -49,4 +49,13 @@ public class User implements Comparable<User> {
             return new User(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", mail='" + mail + '\'' +
+                '}';
+    }
 }

@@ -49,4 +49,13 @@ public class Student implements Comparable<Student> {
             return new Student(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "groupNumber='" + groupNumber + '\'' +
+                ", gpa=" + gpa +
+                ", recordNumber=" + recordNumber +
+                '}';
+    }
 }

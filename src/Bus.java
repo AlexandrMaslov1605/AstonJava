@@ -50,4 +50,13 @@ public class Bus implements Comparable<Bus>{
             return new Bus(this);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Bus{" +
+                "number='" + number + '\'' +
+                ", model='" + model + '\'' +
+                ", mileage=" + mileage +
+                '}';
+    }
 }
