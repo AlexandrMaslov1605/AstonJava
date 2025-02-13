@@ -1,8 +1,6 @@
 import Containers.DynamicArray;
 
 import java.io.*;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -19,8 +17,8 @@ public class Main {
         while (repeat) {
 
             String jobClass = null;
+            int arraySize;
             String fillingMethod = null;
-            Integer arraySize = 0;
             String sortingType = null;
             String yesOrNo = null;
             String restartOrExit = null;
@@ -30,7 +28,6 @@ public class Main {
 
             System.out.println("Укажите размер массива:");
 
-            //while (arraySize <= 0) {
             try {
                 arraySize = Integer.parseInt(bufferedReaderHand.readLine());
                 if (arraySize <= 0) {
@@ -40,86 +37,71 @@ public class Main {
                 System.out.println("Необходимо указать целое натуральное число.");
                 continue;
             }
-            // }
 
-            System.out.println("Выберите класс для заполнения массива: Автобус(Bus), Пользователь(User), Студент(Student)");
+            System.out.println("Выберите класс для заполнения массива:\n1) Автобус(Bus) \n2) Пользователь(User) \n3) Студент(Student)");
+
             //Выбор класса
 
-            while (jobClass == null) {
-                classSelection = bufferedReaderHand.readLine();
-                if (classSelection.equals("Bus") || classSelection.equals("bus")) {
-                    jobClass = "Bus";
-                    dynamicArray = new DynamicArray<>(new Bus[arraySize]);
-                } else if (classSelection.equals("User") || classSelection.equals("user")) {
-                    jobClass = "User";
-                    dynamicArray = new DynamicArray<>(new User[arraySize]);
-                } else if (classSelection.equals("Student") || classSelection.equals("student")) {
-                    jobClass = "Student";
-                    dynamicArray = new DynamicArray<>(new Student[arraySize]);
-                } else {
-                    System.out.println("Такого класса нет! Повторите ввод.");
-                }
+            Select select = new Select();
+            dynamicArray = select.createArrayOfClasses(arraySize,dynamicArray, bufferedReaderHand);
 
-            }
+            jobClass = select.getJobClass();
+
+
 
             // Выбор способа заполнения
 
-            System.out.println("Выберите способ заполнения массива: Вручную(Hands), Из файла(File), Рандомно(Random).");
+            System.out.println("Выберите способ заполнения массива: \n1) Вручную(Hands) \n2) Из файла(File) \n3) Рандомно(Random)");
 
-            while (fillingMethod == null) {
-                fillingSelection = bufferedReaderHand.readLine();
-                if (fillingSelection.equals("Hands") || fillingSelection.equals("hands")) {
-                    fillingMethod = "Hands";
-                } else if (fillingSelection.equals("File") || fillingSelection.equals("file")) {
-                    fillingMethod = "File";
-                    //BufferedReader bufferedReaderFile = new BufferedReader(new FileReader(pathReader));
-                } else if (fillingSelection.equals("Random") || fillingSelection.equals("random")) {
-                    fillingMethod = "Random";
-                } else {
-                    System.out.println("Такого способа нет! Повторите ввод.");
-                }
-            }
-
+            fillingMethod = select.chooseTheInput(fillingMethod, bufferedReaderHand);
 
             //Здесь будут реализованы методы заполнения массива
-
-            if (jobClass.equals("Bus") && fillingMethod.equals("Hands")) {
-
-                for (int i = 0; i < dynamicArray.getSize(); i++) {
-                    System.out.println("Введите номер автобуса " + (i + 1) + " :");
-                    String busNumber = bufferedReaderHand.readLine();
-                    System.out.println("Введите модель автобуса: " + (i + 1) + " :");
-                    String modelBus = bufferedReaderHand.readLine();
-                    System.out.println("Введите пробег автобуса " + (i + 1) + " :");
-                    try {
-                        Integer mileageBus = Integer.parseInt(bufferedReaderHand.readLine());
-                        dynamicArray.set(i, new Bus.BusBuilder().setNumber(busNumber).setModel(modelBus).setMileage(mileageBus).build());
-                    } catch (NumberFormatException e) {
-                        System.out.println("Пробег автобуса может содержать только натуральное число. Повторите ввод параметров.");
-                        i -= 1;
-                    }
-                }
-
-                
+            Records records = new Records();
+            
+            switch(fillingMethod) {
+                case "Hands" ->  records.handsRecord(dynamicArray, jobClass);
+                case "File" -> records.fileRecord(dynamicArray, jobClass);
+                case "Random" -> records.randomRecord(dynamicArray, jobClass);
             }
+
             // Выводим заполненный массив
             if (jobClass.equals("Bus"))
                 for (int i = 0; i < dynamicArray.getSize(); i++) {
-                    System.out.print(((Bus)dynamicArray.getElement(i)).getNumber() + " ");
-                    System.out.print(((Bus)dynamicArray.getElement(i)).getModel() + " ");
-                    System.out.print(((Bus)dynamicArray.getElement(i)).getMileage() + " ");
+                    System.out.print(((Bus) dynamicArray.getElement(i)).getNumber() + " ");
+                    System.out.print(((Bus) dynamicArray.getElement(i)).getModel() + " ");
+                    System.out.print(((Bus) dynamicArray.getElement(i)).getMileage() + " ");
                     System.out.println();
                 }
-                WriteToFile writer = new WriteToFile<Bus>();
-                
-                while (true)
+            if (jobClass.equals("User"))
+                for (int i = 0; i < dynamicArray.getSize(); i++) {
+                    System.out.print(((User) dynamicArray.getElement(i)).getName() + " ");
+                    System.out.print(((User) dynamicArray.getElement(i)).getPassword() + " ");
+                    System.out.print(((User) dynamicArray.getElement(i)).getMail() + " ");
+                    System.out.println();
+                }
+            if (jobClass.equals("Student"))
+                for (int i = 0; i < dynamicArray.getSize(); i++) {
+                    System.out.print(((Student) dynamicArray.getElement(i)).getGroupNumber() + " ");
+                    System.out.print(((Student) dynamicArray.getElement(i)).getGpa() + " ");
+                    System.out.print(((Student) dynamicArray.getElement(i)).getRecordNumber() + " ");
+                    System.out.println();
+                }
+            
+
+            //записываем в файл
+            WriteToFile writter = new WriteToFile();
+            while (true)
                 {
                     System.out.println("Введить путь до файла");
-                    String fileName = bufferedReaderHand.readLine();
-                    if (WriteToFile.writeToFileFunc(fileName, dynamicArray)) break;
+                //String fileName = buff.readLine();
+                   
+                    if (WriteToFile.writeToFileFunc("src/test.txt", dynamicArray)) break;
+                    
                 }
-            // Выбираем способ сортировки
+            
 
+
+            // Выбираем способ сортировки
             if (!jobClass.equals("User")) {
                 System.out.println("Выберите метод сортировки: 1 - \"Сортировка выбором\"; 2 - Кастомная сортировка.");
 
@@ -142,6 +124,9 @@ public class Main {
             //Выбираем осуществлять поиск по отсортированному массиву или нет
 
             System.out.println("Осуществить поиск по массиву? Да/Нет");
+
+
+            
 
             while (yesOrNo == null) {
                 yesOrNoSelection = bufferedReaderHand.readLine();
@@ -184,3 +169,4 @@ public class Main {
         bufferedReaderHand.close();
     }
 }
+

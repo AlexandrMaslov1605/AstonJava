@@ -1,31 +1,61 @@
 import Containers.DynamicArray;
 import java.io.*;
+import java.lang.classfile.instruction.SwitchCase;
 
 public class Select {
-    public static DynamicArray createArrayOfClasses(BufferedReader bufferedReaderHand, int arraySize, DynamicArray dynamicArray){
+    private String jobClass = null;
 
-        
-            try {
-                while (dynamicArray.getSize() == 0){
-                String classSelection = bufferedReaderHand.readLine();
-                if (classSelection.equals("Bus") || classSelection.equals("bus") || classSelection.equals("1")) {
-                    dynamicArray = new DynamicArray<>(new Bus[arraySize]);
-                } else if (classSelection.equals("User") || classSelection.equals("user") || classSelection.equals("2")) {
-                    dynamicArray = new DynamicArray<>(new User[arraySize]);
-                } else if (classSelection.equals("Student") || classSelection.equals("student")|| classSelection.equals("3")) {
-                    dynamicArray = new DynamicArray<>(new Student[arraySize]);
-                } else {
-                    System.out.println("Такого класса нет! Повторите ввод.");
+    public DynamicArray createArrayOfClasses( int arraySize, DynamicArray dynamicArray, BufferedReader buffer){    
+        try {
+            while (dynamicArray == null){
+                String classSelection = buffer.readLine();
+
+                switch (classSelection) {
+                    case "Bus":
+                    case "bus":
+                    case "1":
+                        dynamicArray = new DynamicArray<>(new Bus[arraySize]);
+                        this.jobClass = "Bus";
+                        break;
+                    case "User":
+                    case "user":
+                    case "2":
+                        dynamicArray = new DynamicArray<>(new User[arraySize]);
+                        this.jobClass = "User";
+                        break;
+                    case "Student":
+                    case "student":
+                    case "3":
+                        dynamicArray = new DynamicArray<>(new Student[arraySize]);
+                        this.jobClass = "Student";
+                        break;
+                    default:
+                        System.out.println("Такого класса нет! Повторите ввод.");
                 }
             }
-            
-        } catch (IOException e) {
-                e.printStackTrace();
             }
-            
-
+        
+        catch (IOException e) {
+                e.printStackTrace();
+        }
         return dynamicArray;
     }
+    
+    public String getJobClass(){
+        return this.jobClass;
+    }
 
+    public String chooseTheInput(String fillingMethod, BufferedReader buffer) throws IOException{
 
+        while (fillingMethod == null) {
+            String fillingSelection = buffer.readLine();
+            switch (fillingSelection) {
+                case "Hands", "hands","1" -> fillingMethod = "Hands";
+                case "File", "file" ,"2"-> fillingMethod = "File";
+                case "Random", "random","3" -> fillingMethod = "Random";
+                default -> System.out.println("Такого способа нет! Повторите ввод.");
+            }
+        }
+        return fillingMethod;
+    }
 }
