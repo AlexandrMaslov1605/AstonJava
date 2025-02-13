@@ -88,7 +88,7 @@ public class DynamicArray<T> {
      * Удаляет все элементы из этого списка.
      */
      public  void clear() {
-         // TODO: добавить метод
+         array = new Object[array.length];
      }
 
     /**
