@@ -99,6 +99,8 @@ public class Main {
                         i -= 1;
                     }
                 }
+
+                
             }
             // Выводим заполненный массив
             if (jobClass.equals("Bus"))
@@ -107,6 +109,14 @@ public class Main {
                     System.out.print(((Bus)dynamicArray.getElement(i)).getModel() + " ");
                     System.out.print(((Bus)dynamicArray.getElement(i)).getMileage() + " ");
                     System.out.println();
+                }
+                WriteToFile writer = new WriteToFile<Bus>();
+                
+                while (true)
+                {
+                    System.out.println("Введить путь до файла");
+                    String fileName = bufferedReaderHand.readLine();
+                    if (WriteToFile.writeToFileFunc(fileName, dynamicArray)) break;
                 }
             // Выбираем способ сортировки
 

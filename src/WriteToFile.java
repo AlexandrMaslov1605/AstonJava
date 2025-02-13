@@ -126,7 +126,7 @@ public class WriteToFile<T> {
     public static boolean writeToFileFunc(String fileName, Student student) {
         if (Files.exists(Paths.get(fileName))) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-                writer.append("\n-----------Найденный User -------------------\n");
+                writer.append("\n-----------Найденный Student -------------------\n");
 
                 String line = new String();
                 line = String.format("Номер группы: %-10s Срдений балл: %-3.2f Номер зачет. книжки %-15s\n",
