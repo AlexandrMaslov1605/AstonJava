@@ -85,7 +85,7 @@ public class DynamicArray<T> {
      }
 
     /**
-     * Удаляет все элементы из этого списка.
+     * Удаляет все элементы из этого массива.
      */
      public  void clear() {
          array = new Object[array.length];
