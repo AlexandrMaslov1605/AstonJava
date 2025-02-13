@@ -98,6 +98,8 @@ public class DynamicArray<T> {
      */
     public void set(int index, T element) {
         //TODO: или лучше копировать?
-         array[index] = element;
+        if (index >= 0 && index < array.length) {
+            array[index] = element;
+        }
     }
 }
