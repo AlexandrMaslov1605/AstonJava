@@ -6,6 +6,8 @@ import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.Random;
 
+import java.nio.charset.StandardCharsets;
+
 public class Records {
     private DynamicArray dynamicArray;
     private String value1;
@@ -116,14 +118,49 @@ public class Records {
                         value3 = words[2];
                         switch (jobClass) {
                             case "Bus" -> {
-                                dynamicArray.set(flag, new Bus.BusBuilder().setNumber(value1).setModel(value2).setMileage(Integer.parseInt(value3)).build());
+                                while(value3.length()>0){
+                                    try {
+                                        int val = Integer.parseInt(value3);
+                                        dynamicArray.set(flag, new Bus.BusBuilder().setNumber(value1).setModel(value2).setMileage(val).build());
+                                        break;
+                                    }
+                                    catch (NumberFormatException e){ 
+                                        if(value3.length()> 0){
+                                            value3 = value3.replaceAll("[^0-9]", "");
+                                        }
+                                        else{ value3 = "0";};
+                                    }
+                                }
+
+                                    
                             }
                             case "User" -> {
                                 dynamicArray.set(flag, new User.UserBuilder().setName(value1).setPassword(value2).setMail(value3).build());
                             }
                             case "Student" -> {
-                                dynamicArray.set(flag, new Student.StudentBuilder().setGroupNumber(value1).setGpa(Double.parseDouble(value2)).setRecordNumber(Integer.parseInt(value3)).build());
-                            }
+                                while(value3.length()>0){
+                                    int val3 = -1;
+                                    double val2 = -1;
+                                    try {    
+                                        val3 = Integer.parseInt(value3);
+                                        val2 = Double.parseDouble(value2);
+                                        dynamicArray.set(flag, new Student.StudentBuilder().setGroupNumber(value1).setGpa(val2).setRecordNumber(val3).build());
+                                        break;
+                                    }
+                                    catch (NumberFormatException e){ 
+                                        if(val3 == -1){
+                                            value3 = value3.replaceAll("[^0-9]", "");
+                                        }
+                                        else{ value3 = "0";};
+
+                                        if(val2 == -1){
+                                            value2 = value3.replaceAll("[^0-9]", "");
+                                        }
+                                        else{ value2 = "0";};
+
+                                    }
+                                }
+                                }
                         }
                         line = reader.readLine();
                     } else {

@@ -1,6 +1,8 @@
 import Containers.DynamicArray;
 
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -61,9 +63,7 @@ public class Main {
                 {
                     System.out.println("Введить путь до файла");
                     String fileName = bufferedReaderHand.readLine();
-                   
                     if (WriteToFile.writeToFileFunc(fileName, dynamicArray)) break;
-                    
                 }
            
 
@@ -104,11 +104,13 @@ public class Main {
                     //Еали данные найдены предлагаем пользователю записать их в указанный файл
                     System.out.println("Укажите путь к файлу для записи:");
                     pathWriter = bufferedReaderHand.readLine();
-                    try {
-                        BufferedReader bufferedReaderFile = new BufferedReader(new FileReader(pathWriter));
-                    } catch (FileNotFoundException e) {
-                        System.out.println("Файл не найден, повторите ввод.");
+
+                    while (!Files.exists(Paths.get(pathWriter))){
+                        System.out.println("Указанного файла не существует укажите другой:");
+                        pathWriter = bufferedReaderHand.readLine();
                     }
+                    
+
 
                 } else if (yesOrNoSelection.equals("Нет")) {
                     yesOrNo = "Нет";

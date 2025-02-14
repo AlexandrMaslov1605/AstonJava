@@ -104,4 +104,45 @@ public class Select {
         return arraySize;
 }
 
+    // public void serchInArray(){
+    //     while (yesOrNo == null) {
+
+    //         yesOrNoSelection = bufferedReaderHand.readLine();
+    //         if (yesOrNoSelection.equals("Да")) {
+    //             yesOrNo = "Да";
+
+    //             //Реализация бинарного поиска с использованием дженериков
+
+    //             //Еcли данные найдены предлагаем пользователю записать их в указанный файл
+    //             System.out.println("Укажите путь к файлу для записи:");
+    //             pathWriter = bufferedReaderHand.readLine();
+
+    //             while (!Files.exists(Paths.get(pathWriter))){
+    //                 System.out.println("Указанного файла не существует укажите другой:");
+    //                 pathWriter = bufferedReaderHand.readLine();
+    //             }
+                
+
+
+    //         } else if (yesOrNoSelection.equals("Нет")) {
+    //             yesOrNo = "Нет";
+    //             System.out.println("Если хотите заполнить новый массив напишите - Рестарт.\n" +
+    //                     "Для завершения программы напишите - Выход");
+    //             restartOrExitSelecton = bufferedReaderHand.readLine();
+    //             while (restartOrExit == null) {
+    //                 if (restartOrExitSelecton.equals("Рестарт")) {
+    //                     restartOrExit = "Рестарт";
+    //                     repeat = true;
+    //                 } else if (restartOrExitSelecton.equals("Выход")) {
+    //                     restartOrExit = "Выход";
+    //                     repeat = false;
+    //                 } else {
+    //                     System.out.println("Напишите \"Рестарт\" или \"Выход\".");
+    //                     restartOrExitSelecton = bufferedReaderHand.readLine();
+    //                 }
+    //             }
+    //         } else {
+    //             System.out.println("Введита либо \"Да\", либо \"Нет\".");
+    //         }
+    // }}
 }

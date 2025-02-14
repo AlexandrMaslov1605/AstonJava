@@ -6,6 +6,8 @@ import java.io.BufferedWriter;
 
 import Containers.DynamicArray;
 
+import java.nio.charset.StandardCharsets;
+
 public class WriteToFile<T> {
     /**
      * Записывает в указанную папку @param fileName ,
