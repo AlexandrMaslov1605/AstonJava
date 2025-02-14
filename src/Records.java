@@ -112,7 +112,12 @@ public class Records {
 
                 while ((flag < dynamicArray.getSize())) {
                     if (line != null) {
-                        String[] words = line.split(" ");
+
+                        String[] words ={"0", "0", "0"};
+                        if (line.split(" ").length >=3) {
+                            words = line.split(" ");
+                        }
+                        
                         value1 = words[0];
                         value2 = words[1];
                         value3 = words[2];

@@ -123,7 +123,7 @@ public class WriteToFile<T> {
 
         else
             return false;
-    }
+    }   
 
     public static boolean writeToFileFunc(String fileName, Student student) {
         if (Files.exists(Paths.get(fileName))) {
