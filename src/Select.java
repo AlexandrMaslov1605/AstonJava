@@ -58,4 +58,50 @@ public class Select {
         }
         return fillingMethod;
     }
+
+    public void arrayOutput(DynamicArray dynamicArray){
+        switch(jobClass){
+        case "Bus":
+                for (int i = 0; i < dynamicArray.getSize(); i++) {
+                    System.out.print(((Bus) dynamicArray.getElement(i)).getNumber() + " ");
+                    System.out.print(((Bus) dynamicArray.getElement(i)).getModel() + " ");
+                    System.out.print(((Bus) dynamicArray.getElement(i)).getMileage() + " ");
+                    System.out.println();
+                }
+                break;
+        case "User":
+                for (int i = 0; i < dynamicArray.getSize(); i++) {
+                    System.out.print(((User) dynamicArray.getElement(i)).getName() + " ");
+                    System.out.print(((User) dynamicArray.getElement(i)).getPassword() + " ");
+                    System.out.print(((User) dynamicArray.getElement(i)).getMail() + " ");
+                    System.out.println();
+                }
+                break;
+        case "Student":
+                for (int i = 0; i < dynamicArray.getSize(); i++) {
+                    System.out.print(((Student) dynamicArray.getElement(i)).getGroupNumber() + " ");
+                    System.out.print(((Student) dynamicArray.getElement(i)).getGpa() + " ");
+                    System.out.print(((Student) dynamicArray.getElement(i)).getRecordNumber() + " ");
+                    System.out.println();
+                }
+                break;
+    }
+}
+
+    public int inputArraySize(BufferedReader bufferedReaderHand) throws IOException{
+        int arraySize;
+        while(true){
+        try {
+            arraySize = Integer.parseInt(bufferedReaderHand.readLine());
+            if (arraySize <= 0) {
+                throw new NumberFormatException();
+            }
+            break;
+        } catch (NumberFormatException e) {
+            System.out.println("Необходимо указать целое натуральное число.");
+            }
+        }
+        return arraySize;
+}
+
 }

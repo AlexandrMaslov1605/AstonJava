@@ -24,82 +24,48 @@ public class Main {
             String restartOrExit = null;
             DynamicArray<Object> dynamicArray = null;
 
-            // Указание размера массива
+            Select select = new Select();
 
+            // Указание размера массива
             System.out.println("Укажите размер массива:");
 
-            try {
-                arraySize = Integer.parseInt(bufferedReaderHand.readLine());
-                if (arraySize <= 0) {
-                    throw new NumberFormatException();
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Необходимо указать целое натуральное число.");
-                continue;
-            }
-
-            System.out.println("Выберите класс для заполнения массива:\n1) Автобус(Bus) \n2) Пользователь(User) \n3) Студент(Student)");
+            arraySize = select.inputArraySize(bufferedReaderHand);
 
             //Выбор класса
-
-            Select select = new Select();
+            System.out.println("Выберите класс для заполнения массива:\n1) Автобус(Bus) \n2) Пользователь(User) \n3) Студент(Student)");          
             dynamicArray = select.createArrayOfClasses(arraySize,dynamicArray, bufferedReaderHand);
-
             jobClass = select.getJobClass();
 
 
 
             // Выбор способа заполнения
-
             System.out.println("Выберите способ заполнения массива: \n1) Вручную(Hands) \n2) Из файла(File) \n3) Рандомно(Random)");
-
             fillingMethod = select.chooseTheInput(fillingMethod, bufferedReaderHand);
 
-            //Здесь будут реализованы методы заполнения массива
+            //Заполнение массива
             Records records = new Records();
             
             switch(fillingMethod) {
-                case "Hands" ->  records.handsRecord(dynamicArray, jobClass);
-                case "File" -> records.fileRecord(dynamicArray, jobClass);
+                case "Hands" ->  records.handsRecord(bufferedReaderHand,dynamicArray, jobClass);
+                case "File" -> records.fileRecord(bufferedReaderHand, dynamicArray, jobClass);
                 case "Random" -> records.randomRecord(dynamicArray, jobClass);
             }
 
             // Выводим заполненный массив
-            if (jobClass.equals("Bus"))
-                for (int i = 0; i < dynamicArray.getSize(); i++) {
-                    System.out.print(((Bus) dynamicArray.getElement(i)).getNumber() + " ");
-                    System.out.print(((Bus) dynamicArray.getElement(i)).getModel() + " ");
-                    System.out.print(((Bus) dynamicArray.getElement(i)).getMileage() + " ");
-                    System.out.println();
-                }
-            if (jobClass.equals("User"))
-                for (int i = 0; i < dynamicArray.getSize(); i++) {
-                    System.out.print(((User) dynamicArray.getElement(i)).getName() + " ");
-                    System.out.print(((User) dynamicArray.getElement(i)).getPassword() + " ");
-                    System.out.print(((User) dynamicArray.getElement(i)).getMail() + " ");
-                    System.out.println();
-                }
-            if (jobClass.equals("Student"))
-                for (int i = 0; i < dynamicArray.getSize(); i++) {
-                    System.out.print(((Student) dynamicArray.getElement(i)).getGroupNumber() + " ");
-                    System.out.print(((Student) dynamicArray.getElement(i)).getGpa() + " ");
-                    System.out.print(((Student) dynamicArray.getElement(i)).getRecordNumber() + " ");
-                    System.out.println();
-                }
-            
+            select.arrayOutput(dynamicArray);
+
 
             //записываем в файл
             WriteToFile writter = new WriteToFile();
             while (true)
                 {
                     System.out.println("Введить путь до файла");
-                //String fileName = buff.readLine();
+                    String fileName = bufferedReaderHand.readLine();
                    
-                    if (WriteToFile.writeToFileFunc("src/test.txt", dynamicArray)) break;
+                    if (WriteToFile.writeToFileFunc(fileName, dynamicArray)) break;
                     
                 }
-            
-
+           
 
             // Выбираем способ сортировки
             if (!jobClass.equals("User")) {
