@@ -1,6 +1,5 @@
 package Containers;
 import java.util.Comparator;
-import static java.util.Collections.swap;
 
 public class ContainersUtils {
     public static <T> void selectionSort(T[] array, Comparator<T> comparator) {
@@ -19,6 +18,30 @@ public class ContainersUtils {
                 array[minIdx] = temp;
             }
         }
+    }
+
+    /**
+     *
+     * @param array
+     * @param even_odd Сортировать четные(true) или нечетные(false) числовые данные
+     */
+    public static void customSort(DynamicArray<Bus> array) {
+        for (int i = 0; i < n; i++) {
+            int minIdx = i;
+            if (array.getElement(i).getMileage() % 2 != 0) {
+                continue;
+            }
+
+            for (int j = i + 1; j < n; j++) {
+                // В цикле находим реальный номер ячейки с минимальным значением
+                minIdx = array.getElement(j).getMileage() < array.getElement(minIdx) ? j : minIdx;
+            }
+
+            if (i != minIdx) {
+                Bus temp = array.getElement(i);
+                array.set(i, array.getElement(minIdx));
+                array.set(minIdx, temp);
+            }
         }
     }
 }
