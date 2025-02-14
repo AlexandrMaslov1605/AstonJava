@@ -3,10 +3,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.io.BufferedWriter;
+import java.nio.charset.StandardCharsets;
 
 import Containers.DynamicArray;
 
-import java.nio.charset.StandardCharsets;
 
 public class WriteToFile<T> {
     /**
@@ -55,7 +55,7 @@ public class WriteToFile<T> {
         // нужно ли обрабатывать эту ошибку но мы знаем что такой ситуаци НЕ будет
         // поэтому все строки
         // сначала аккумулируется в stringBuilder
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, StandardCharsets.UTF_8, true))) {
             writer.append(line.toString());
         } catch (IOException e) {
             e.printStackTrace();
@@ -79,7 +79,7 @@ public class WriteToFile<T> {
      */
     public static boolean writeToFileFunc(String fileName, Bus bus) {
         if (Files.exists(Paths.get(fileName))) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, StandardCharsets.UTF_8, true))) {
                 writer.append("\n-----------Finded Bus -------------------\n");
 
                 String line = new String();
@@ -103,7 +103,7 @@ public class WriteToFile<T> {
 
     public static boolean writeToFileFunc(String fileName, User user) {
         if (Files.exists(Paths.get(fileName))) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, StandardCharsets.UTF_8, true))) {
                 writer.append("\n-----------Finded User -------------------\n");
 
                 String line = new String();
@@ -127,7 +127,7 @@ public class WriteToFile<T> {
 
     public static boolean writeToFileFunc(String fileName, Student student) {
         if (Files.exists(Paths.get(fileName))) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, StandardCharsets.UTF_8, true))) {
                 writer.append("\n-----------Finded Student -------------------\n");
 
                 String line = new String();
