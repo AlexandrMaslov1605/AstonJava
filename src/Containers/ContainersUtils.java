@@ -19,3 +19,16 @@ public class ContainersUtils {
             swap(array[minIndex], array[i]);
         }
     }
+
+    private static <T> void swap(T t, T t1) {
+        T temp = t1;
+        t1 = t2;
+        t2 = temp;
+    }
+
+
+        public static int mileageCompare(Bus o1, Bus o2) {
+            return Integer.compare(o1.getMileage(), o2.getMileage());
+        }
+    }
+}
