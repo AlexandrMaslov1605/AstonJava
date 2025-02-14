@@ -41,7 +41,6 @@ public class Records {
                     System.out.println("Введите пароль пользователя " + (i + 1) + " :");
                     value2 = bufferedReader.readLine();
                     System.out.println("Введите почту пользоавтеля " + (i + 1) + " :");
-
                     boolean flagMail = false;
                     while (!flagMail) {
                         try {
@@ -90,7 +89,6 @@ public class Records {
                 }
             }
         }
-        bufferedReader.close();
         return this.dynamicArray = dynamicArray;
     }
 
@@ -112,15 +110,13 @@ public class Records {
                         value2 = words[1];
                         value3 = words[2];
                         switch (jobClass) {
-                            case "Bus" -> {
-                                dynamicArray.set(flag, new Bus.BusBuilder().setNumber(value1).setModel(value2).setMileage(Integer.parseInt(value3)).build());
-                            }
-                            case "User" -> {
-                                dynamicArray.set(flag, new User.UserBuilder().setName(value1).setPassword(value2).setMail(value3).build());
-                            }
-                            case "Student" -> {
-                                dynamicArray.set(flag, new Student.StudentBuilder().setGroupNumber(value1).setGpa(Double.parseDouble(value2)).setRecordNumber(Integer.parseInt(value3)).build());
-                            }
+                            case "Bus" ->
+                                    dynamicArray.set(flag, new Bus.BusBuilder().setNumber(value1).setModel(value2).setMileage(Integer.parseInt(value3)).build());
+                            case "User" ->
+                                    dynamicArray.set(flag, new User.UserBuilder().setName(value1).setPassword(value2).setMail(value3).build());
+                            case "Student" ->
+                                    dynamicArray.set(flag, new Student.StudentBuilder().setGroupNumber(value1).setGpa(Double.parseDouble(value2)).setRecordNumber(Integer.parseInt(value3)).build());
+
                         }
                         line = reader.readLine();
                     } else {
@@ -195,7 +191,7 @@ public class Records {
                         }
                         flag++;
                     } else
-                    line = reader.readLine();
+                        line = reader.readLine();
                 }
             }
         } catch (FileNotFoundException e) {

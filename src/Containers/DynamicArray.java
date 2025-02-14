@@ -100,4 +100,5 @@ public class DynamicArray<T> {
         //TODO: или лучше копировать?
          array[index] = element;
     }
+
 }
