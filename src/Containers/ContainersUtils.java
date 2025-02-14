@@ -20,11 +20,6 @@ public class ContainersUtils {
         }
     }
 
-    /**
-     *
-     * @param array
-     * @param even_odd Сортировать четные(true) или нечетные(false) числовые данные
-     */
     public static void customSort(DynamicArray<Bus> array) {
         for (int i = 0; i < n; i++) {
             int minIdx = i;
@@ -34,7 +29,7 @@ public class ContainersUtils {
 
             for (int j = i + 1; j < n; j++) {
                 // В цикле находим реальный номер ячейки с минимальным значением
-                minIdx = array.getElement(j).getMileage() < array.getElement(minIdx) ? j : minIdx;
+                minIdx = array.getElement(j).getMileage() < array.getElement(minIdx).getMileage() ? j : minIdx;
             }
 
             if (i != minIdx) {
