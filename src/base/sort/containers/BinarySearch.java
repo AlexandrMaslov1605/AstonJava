@@ -1,9 +1,12 @@
 package base.sort.containers;
 
+import java.util.Arrays;
 import java.util.Optional;
 
 public class BinarySearch {
     public static <T extends Comparable<T>> Optional<T> binarySearch(DynamicArray<T> list, T search) {
+        Arrays.sort(list.getArray());
+
         int left = 0;
         int right = list.getSize() - 1;
 

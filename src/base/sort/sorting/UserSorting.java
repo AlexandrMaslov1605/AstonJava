@@ -11,7 +11,7 @@ import base.sort.SortStrategy;
 public class UserSorting implements SortStrategy {
 
     @Override
-    public <T> void sorting1(DynamicArray<T> array) {
+    public void sorting1(DynamicArray array) {
 
         ContainersUtils.selectionSort((User[]) array.getArray(), new UserComparator());
 

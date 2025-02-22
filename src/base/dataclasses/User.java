@@ -47,4 +47,17 @@ public class User {
             return new User(this);
         }
     }
+
+    @Override
+    public String toString() {
+        String str = String.format("Имя пользователя: %-10s,", name);
+        String str1 = String.format(" Пароль: %-8s", password);
+        String str2 = String.format(", Почта: %-25s", mail);
+
+        return "[" +
+                str +
+                str1 +
+                str2 +
+                ']';
+    }
 }

@@ -10,6 +10,46 @@ public class Records {
     private String value1;
     private String value2;
     private String value3;
+    private final String[] name = new String[]{
+            "Дмитрий", "Олег", "Евгений", "Александр", "Анна", "Анастасия", "Пётр", "Иван",
+            "Денис", "Даниил", "Татьяна", "Юлия", "Николай", "Екатерина", "Ирина", "Михаил",
+            "Дарья", "Инна", "Никита", "Сергей", "Светлана", "Евгения", "Игнат", "Алексей",
+            "Владислав", "Константин", "Глеб", "Надежда", "Юрий", "Артём"
+    };
+
+    private final String[] alphabetThisNumber = new String[]{
+            "А", "В", "Е", "К", "М", "Н", "О", "Р", "С", "Т", "У", "Х"
+    };
+
+    private final String[] busModel = new String[]{
+            "Mercedes", "Peugeot", "Renault", "ПАЗ", "Газель", "ЛИАЗ", "Citroen"
+    };
+
+    private final String[] simbolPassword = new String[]{
+            "!", "@", "#", "$", "%", "&", "?", "(", ")", "-", "=", "+", "q",
+            "w", "e", "r", "t", "y", "u", "i", "o", "p", "a", "s", "d", "f",
+            "g", "h", "j", "k", "l", "z", "x", "c", "v", "b", "n", "m", "Q",
+            "W", "E", "R", "T", "Y", "U", "I", "O", "P", "A", "S", "D", "F",
+            "G", "H", "J", "K", "L", "Z", "X", "C", "V", "B", "N", "M"
+    };
+    private final char[] abcCyr = {
+            'а', 'б', 'в', 'г', 'д',
+            'е', 'ё', 'ж', 'з', 'и', 'й',
+            'к', 'л', 'м', 'н', 'о', 'п', 'р',
+            'с', 'т', 'у', 'ф', 'х', 'ц', 'ч',
+            'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'
+    };
+    private final String[] abcLat = {
+            "a", "b", "v", "g", "d", "e", "e",
+            "zh", "z", "i", "y", "k", "l", "m", "n",
+            "o", "p", "r", "s", "t", "u", "f", "h",
+            "ts", "ch", "sh", "sch", "", "i", "",
+            "e", "ju", "ja"
+    };
+
+    private final String[] emailHost = new String[]{
+            "@mail.ru", "@bk.ru", "@yandex.ru", "gmail.com", "@vk.ru"
+    };
 
 
     public DynamicArray handsRecord(BufferedReader bufferedReaderHand, DynamicArray dynamicArray, String jobClass) throws IOException {
@@ -141,64 +181,59 @@ public class Records {
                 System.out.println("Неверный путь к файлу. Повторите ввод.");
             }
         }
-        bufferedReader.close();
         return this.dynamicArray = dynamicArray;
     }
 
     public DynamicArray randomRecord(DynamicArray dynamicArray, String jobClass) throws IOException {
         Integer flag = 0;
-        try (BufferedReader reader = new BufferedReader(new FileReader("src/file/randomFile.txt"))) {
-            String line = reader.readLine();
+        String line = "";
 
-            while (flag < dynamicArray.getSize()) {
-                if (jobClass.equals(line)) {
-                    line = reader.readLine();
-                    while (line != null && !line.equals("Bus") && !line.equals("User") && !line.equals("Student") && flag < dynamicArray.getSize()) {
-                        String[] words = line.split(" ");
-                        switch (jobClass) {
-                            case "Bus" -> {
-                                value1 = words[0];
-                                value2 = words[1];
-                                dynamicArray.set(flag, new Bus.BusBuilder().setNumber(value1).setModel(value2).setMileage((int) (Math.random() * 500000)).build());
-                            }
-                            case "User" -> {
-                                value1 = words[0];
-                                value2 = words[1];
-                                value3 = words[2];
-                                dynamicArray.set(flag, new User.UserBuilder().setName(value1).setPassword(value2).setMail(value3).build());
-                            }
-                            case "Student" -> {
-                                value1 = words[0];
-                                Random random = new Random();
-                                Double randomGpa = (random.nextFloat() * 3.0) + 2.0;
-                                Double randomGpaWrite = (double) Math.round(randomGpa * 100) / 100;
-                                dynamicArray.set(flag, new Student.StudentBuilder().setGroupNumber(value1).setGpa(randomGpaWrite).setRecordNumber((int) (Math.random() * 500000)).build());
-                            }
-                        }
-                        line = reader.readLine();
-                        flag++;
+        while (flag < dynamicArray.getSize()) {
+            switch (jobClass) {
+                case "Bus" -> {
+                    value1 = alphabetThisNumber[(int) (Math.random() * 11)] + (int) (Math.random() * 10) + (int) (Math.random() * 10)
+                            + (int) (Math.random() * 10) + alphabetThisNumber[(int) (Math.random() * 11)] + alphabetThisNumber[(int) (Math.random() * 11)]
+                            + (int) (Math.random() * 10) + (int) (Math.random() * 10);
+                    value2 = busModel[(int) (Math.random() * 6)];
+                    dynamicArray.set(flag, new Bus.BusBuilder().setNumber(value1).setModel(value2).setMileage((int) (Math.random() * 500000)).build());
+                }
+                case "User" -> {
+                    line = "";
+                    value1 = name[(int) (Math.random() * 30)];
+                    for (int i = 0; i < 8; i++) {
+                        line += simbolPassword[(int) (Math.random() * 64)];
                     }
-                } else {
-                    if ((flag > 0) && (flag < dynamicArray.getSize())) {
-                        switch (jobClass) {
-                            case "Bus" -> {
-                                dynamicArray.set(flag, new Bus.BusBuilder().setNumber("0").setModel("0").setMileage(0).build());
-                            }
-                            case "User" -> {
-                                dynamicArray.set(flag, new User.UserBuilder().setName("0").setPassword("0").setMail("0").build());
-                            }
-                            case "Student" -> {
-                                dynamicArray.set(flag, new Student.StudentBuilder().setGroupNumber("0").setGpa(0.0).setRecordNumber(0).build());
-                            }
+                    value2 = line;
+                    line = "";
+                    for (int i = 0; i < value1.length(); i++) {
+                        for (int j = 0; j < abcCyr.length; j++) {
+                            if (value1.toLowerCase().charAt(i) == abcCyr[j])
+                                line += abcLat[j];
                         }
-                        flag++;
-                    } else
-                        line = reader.readLine();
+                    }
+                    value3 = line + (int) (Math.random() * 2025) + emailHost[(int) (Math.random() * 5)];
+                    dynamicArray.set(flag, new User.UserBuilder().setName(value1).setPassword(value2).setMail(value3).build());
+                }
+                case "Student" -> {
+                    String str = String.valueOf(abcCyr[(int) (Math.random() * 33)]).toUpperCase();
+                    while ((str.equals("Ъ")) || (str.equals("Ь"))
+                            || (str.equals("Ы"))
+                            || (str.equals("Ё"))){
+                        str = String.valueOf(abcCyr[(int) (Math.random() * 33)]).toUpperCase();
+                         }
+
+                            value1 = (int) (Math.random() * 99) + str + "-" + (int) (Math.random() * 4 + 1);
+
+                    Random random = new Random();
+                    Double randomGpa = (random.nextFloat() * 3.0) + 2.0;
+                    Double randomGpaWrite = (double) Math.round(randomGpa * 100) / 100;
+                    dynamicArray.set(flag, new Student.StudentBuilder().setGroupNumber(value1).setGpa(randomGpaWrite).setRecordNumber((int) (Math.random() * 50000000)).build());
                 }
             }
-        } catch (FileNotFoundException e) {
-            System.out.println("Файл не найден.");
+            flag++;
         }
+
+
         return this.dynamicArray = dynamicArray;
     }
 }

@@ -31,12 +31,15 @@ public class SortService {
         }
     }
 
-    public <T> void startStrategy(DynamicArray<T> array){
+    public void startStrategy(DynamicArray array){
 
-        if (sortStrategy != null) {
-            sortStrategy.sorting1(array);
-        } else {
-            System.out.println("Вид сортировки не установлен");
+        if (sortStrategy != null){
+            if (sortStrategy != null) {
+                sortStrategy.sorting1(array);
+            }
+            else {
+                System.out.println("Вид сортировки не установлен");
+            }
         }
 
     }

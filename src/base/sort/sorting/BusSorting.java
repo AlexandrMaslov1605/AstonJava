@@ -10,7 +10,7 @@ import base.sort.containers.ContainersUtils;
 public class BusSorting implements SortStrategy{
 
     @Override
-    public <T> void sorting1(DynamicArray<T> array) {
+    public void sorting1(DynamicArray array) {
 
         ContainersUtils.selectionSort((Bus[]) array.getArray(), new BusComparator());
 
@@ -19,6 +19,6 @@ public class BusSorting implements SortStrategy{
 
     @Override
     public void sorting2() {
-        // ContainersUtils.customSortBus(array);
+
     }
 }

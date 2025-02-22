@@ -1,11 +1,11 @@
 package base.dataclasses;
 
-public class Bus {
+public class Bus implements Comparable<Bus>{
     private String number;
     private String model;
     private Integer mileage;
 
-    private Bus (BusBuilder busBuilder){
+    private Bus(BusBuilder busBuilder) {
         number = busBuilder.number;
         model = busBuilder.model;
         mileage = busBuilder.mileage;
@@ -23,7 +23,12 @@ public class Bus {
         return mileage;
     }
 
-    public static class BusBuilder{
+    @Override
+    public int compareTo(Bus o) {
+        return this.mileage.compareTo(o.mileage);
+    }
+
+    public static class BusBuilder {
         private String number;
         private String model;
         private Integer mileage;
@@ -50,10 +55,12 @@ public class Bus {
 
     @Override
     public String toString() {
-        return "Bus{" +
-                "number='" + number + '\'' +
-                ", model='" + model + '\'' +
-                ", mileage=" + mileage +
-                '}';
+        String str = String.format(", Модель: %-8s", model);
+        String str1 = String.format(", Пробег: %-6d", mileage);
+        return "[" +
+                "Номер автобуса: " + number +
+                str +
+                str1 +
+                ']';
     }
 }

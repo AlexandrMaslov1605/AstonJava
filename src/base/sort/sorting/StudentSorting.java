@@ -12,7 +12,7 @@ import base.sort.containers.ContainersUtils;
 public class StudentSorting implements SortStrategy {
 
     @Override
-    public <T> void sorting1(DynamicArray<T> array) {
+    public void sorting1(DynamicArray array) {
 
         ContainersUtils.selectionSort((Student[])array.getArray(), new StudentComparator());
 

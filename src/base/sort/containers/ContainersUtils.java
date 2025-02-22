@@ -1,7 +1,5 @@
 package base.sort.containers;
 import base.dataclasses.Bus;
-import base.dataclasses.Student;
-import base.dataclasses.User;
 
 import java.util.Comparator;
 
@@ -24,7 +22,7 @@ public class ContainersUtils {
         }
     }
 
-    public static void customSortBus(DynamicArray<Bus> array) {
+    public static void customSort(DynamicArray<Bus> array) {
         int n = array.getSize();
         for (int i = 0; i < n; i++) {
             int minIdx = i;
@@ -39,27 +37,6 @@ public class ContainersUtils {
 
             if (i != minIdx) {
                 Bus temp = array.getElement(i);
-                array.set(i, array.getElement(minIdx));
-                array.set(minIdx, temp);
-            }
-        }
-    }
-
-    public static void customSortStudent(DynamicArray<Student> array) {
-        int n = array.getSize();
-        for (int i = 0; i < n; i++) {
-            int minIdx = i;
-            if (array.getElement(i).getRecordNumber() % 2 != 0) {
-                continue;
-            }
-
-            for (int j = i + 1; j < n; j++) {
-                // В цикле находим реальный номер ячейки с минимальным значением
-                minIdx = array.getElement(j).getRecordNumber() < array.getElement(minIdx).getRecordNumber() ? j : minIdx;
-            }
-
-            if (i != minIdx) {
-                Student temp = array.getElement(i);
                 array.set(i, array.getElement(minIdx));
                 array.set(minIdx, temp);
             }

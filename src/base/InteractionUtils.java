@@ -1,6 +1,7 @@
 package base;
 
 import base.sort.SortService;
+import base.sort.containers.BinarySearch;
 import base.sort.containers.DynamicArray;
 import base.dataclasses.Records;
 import base.dataclasses.*;
@@ -33,7 +34,7 @@ public final class InteractionUtils {
             String sortingType = null;
             String yesOrNo = null;
             String restartOrExit = null;
-            DynamicArray<Object> dynamicArray = null;
+            DynamicArray dynamicArray = null;
 
             Select select = new Select();
 
@@ -44,9 +45,8 @@ public final class InteractionUtils {
 
             //Выбор класса
             System.out.println("Выберите класс для заполнения массива:\n1) Автобус(Bus) \n2) Пользователь(User) \n3) Студент(Student)");
-            dynamicArray = select.createArrayOfClasses(arraySize,dynamicArray, bufferedReaderHand);
+            dynamicArray = select.createArrayOfClasses(arraySize, dynamicArray, bufferedReaderHand);
             jobClass = select.getJobClass();
-
 
 
             // Выбор способа заполнения
@@ -56,8 +56,8 @@ public final class InteractionUtils {
             //Заполнение массива
             Records records = new Records();
 
-            switch(fillingMethod) {
-                case "Hands" ->  records.handsRecord(bufferedReaderHand,dynamicArray, jobClass);
+            switch (fillingMethod) {
+                case "Hands" -> records.handsRecord(bufferedReaderHand, dynamicArray, jobClass);
                 case "File" -> records.fileRecord(bufferedReaderHand, dynamicArray, jobClass);
                 case "Random" -> records.randomRecord(dynamicArray, jobClass);
             }
@@ -66,26 +66,28 @@ public final class InteractionUtils {
             select.arrayOutput(dynamicArray);
 
 
-
             // Выбираем способ сортировки
-            if (!jobClass.equals("User")) {
-                System.out.println("Выберите метод сортировки: 1 - \"Сортировка выбором\"; 2 - Кастомная сортировка.");
 
-                while (sortingType == null) {
+
+            while (sortingType == null) {
+                if (!jobClass.equals("User")) {
+                    System.out.println("Выберите метод сортировки: 1 - \"Сортировка выбором\"; 2 - Кастомная сортировка.");
                     sortingSelection = bufferedReaderHand.readLine();
-                    if (sortingSelection.equals("1")) {
-                        sortingType = "1";
-                        SortService sortService = new SortService();
-                        sortService.UseServiceSort(jobClass);
-                        sortService.startStrategy(dynamicArray);
-                    } else if (sortingSelection.equals("2")) {
-                        sortingType = "2";
-                    } else {
-                        System.out.println("Введите номер который соответсвует выбранному виду сортировки.");
-                    }
+                } else {
+                    System.out.println("Массив с объектами класса User отсортирован согласно алгоритму - \"Сортировка выбором\".");
+                    sortingSelection = "1";
                 }
-            } else {
-                System.out.println("Массив с объектами класса User будет отсортирован согласно алгоритму - \"Сортировка выбором\".");
+                if (sortingSelection.equals("1")) {
+                    sortingType = "1";
+                    SortService sortService = new SortService();
+                    sortService.UseServiceSort(jobClass);
+                    sortService.startStrategy(dynamicArray);
+                } else if (sortingSelection.equals("2")) {
+                    sortingType = "2";
+                } else {
+                    System.out.println("Введите номер который соответсвует выбранному виду сортировки.");
+                }
+
             }
 
             // Выводим отсортированный массив
@@ -111,25 +113,44 @@ public final class InteractionUtils {
                     yesOrNo = "Да";
 
                     //Реализация бинарного поиска с использованием дженериков
-                    /*if (jobClass.equals("Bus")){
-                        Bus busSearch = new Bus.BusBuilder().setMileage(Integer.parseInt(bufferedReaderHand.readLine())).build();
-                        System.out.println(BinarySearch.binarySearch(dynamicArray, busSearch);
-                    }*/
-                    //Еали данные найдены предлагаем пользователю записать их в указанный файл
-                    System.out.println("Укажите путь к файлу для записи:");
-                    pathWriter = bufferedReaderHand.readLine();
-
-                    while (!Files.exists(Paths.get(pathWriter))){
-                        System.out.println("Указанного файла не существует укажите другой:");
-                        pathWriter = bufferedReaderHand.readLine();
+                    if (jobClass.equals("Bus")){
+                        System.out.println("Укажите пробег:");
+                        Integer search = Integer.parseInt(bufferedReaderHand.readLine());
+                        Bus busSearch = new Bus.BusBuilder().setMileage(search).build();
+                        System.out.println( BinarySearch.binarySearch(dynamicArray, busSearch));
+                        System.out.println();
                     }
+                    if (jobClass.equals(("Student"))){
+                        System.out.println("Введите номер зачетки:");
+                        Integer search = Integer.parseInt(bufferedReaderHand.readLine());
+                        Student studentSearch = new Student.StudentBuilder().setRecordNumber(search).build();
+                        System.out.println(BinarySearch.binarySearch(dynamicArray, studentSearch));
+                        System.out.println();
+                    }
+                    //Еали данные найдены предлагаем пользователю записать их в указанный файл
 
+                    System.out.println("Хотите записать найденные данные в файл? Да/Нет");
+                    String record = bufferedReaderHand.readLine();
+                    if (record.equals("Да")) {
 
+                        System.out.println("Укажите путь к файлу для записи:");
+                        pathWriter = bufferedReaderHand.readLine();
+
+                        while (!Files.exists(Paths.get(pathWriter))) {
+                            System.out.println("Указанного файла не существует укажите другой:");
+                            pathWriter = bufferedReaderHand.readLine();
+                        }
+                        System.out.println("Данные успешно записаны.");
+                    }
 
                 } else if (yesOrNoSelection.equals("Нет")) {
                     yesOrNo = "Нет";
-                    System.out.println("Если хотите заполнить новый массив напишите - Рестарт.\n" +
-                            "Для завершения программы напишите - Выход");
+                }
+                else {
+                    System.out.println("Введита либо \"Да\", либо \"Нет\".");
+                }
+            }
+                    System.out.println("Если хотите заполнить новый массив напишите - Рестарт.\n" + "Для завершения программы напишите - Выход");
                     restartOrExitSelecton = bufferedReaderHand.readLine();
                     while (restartOrExit == null) {
                         if (restartOrExitSelecton.equals("Рестарт")) {
@@ -143,11 +164,7 @@ public final class InteractionUtils {
                             restartOrExitSelecton = bufferedReaderHand.readLine();
                         }
                     }
-                } else {
-                    System.out.println("Введита либо \"Да\", либо \"Нет\".");
-                }
             }
-        }
         bufferedReaderHand.close();
     }
 }
